@@ -38,8 +38,9 @@ namespace SkulyRepack
             this.textBox1.Location = new System.Drawing.Point(29, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(183, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBox1.TabIndex = 1;
             this.textBox1.Text = "Account name";
+            this.textBox1.GotFocus += new System.EventHandler(this.textBox1_GotFocus);
             // 
             // button1
             // 
@@ -47,7 +48,7 @@ namespace SkulyRepack
             this.button1.Location = new System.Drawing.Point(78, 28);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
+            this.button1.TabIndex = 0;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);

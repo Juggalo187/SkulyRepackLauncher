@@ -49,5 +49,10 @@ namespace SkulyRepack
         {
 
         }
+
+        private void textBox1_GotFocus(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+        }
     }
 }

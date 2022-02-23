@@ -79,12 +79,12 @@ namespace SkulyRepack
 
 
                     String fullPath = Path.GetDirectoryName(@"updater\launcher\sql\NPCDeleteBots\backup\NPCBotsDump.sql");
-                    FileInfo originalbackup = new FileInfo(@"updater\launcher\sql\NPCDeleteBots\backup\NPCBotsDump_Original.sql");
-                    if (!originalbackup.Exists)
+                    if (!File.Exists(@"updater\launcher\sql\NPCDeleteBots\backup\original\NPCBotsDump_Original_world.sql"))
                     {
                         Directory.CreateDirectory(@"updater\launcher\sql\NPCDeleteBots\backup\original");
                         File.Copy(Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup", "NPCBotsDump_world.sql"), Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup\original", "NPCBotsDump_Original_world.sql"));
                         File.Copy(Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup", "NPCBotsDump_chars.sql"), Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup\original", "NPCBotsDump_Original_chars.sql"));
+
                     }
 
                     DialogResult c;
@@ -94,29 +94,34 @@ namespace SkulyRepack
 
                     }
                 }
-                Process deletebotschar = new Process();
-                string deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
-                deletebotschar.StartInfo.FileName = "cmd.exe";
-                deletebotschar.StartInfo.Arguments = deletebotscharstring;
-                deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                deletebotschar.Start();
-                deletebotschar.WaitForExit();
-
-                Process deletebotsworld = new Process();
-                string deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
-                deletebotsworld.StartInfo.FileName = "cmd.exe";
-                deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
-                deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                deletebotsworld.Start();
-                deletebotsworld.WaitForExit();
-
-                DialogResult d;
-                d = MessageBox.Show("ALL NPCBots should have been removed from the world.", "NPCBotsDelete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (d == DialogResult.OK)
+                DialogResult f;
+                f = MessageBox.Show("Are you sure you want to remove ALL spawned bots from the world?", "NPCBotsDelete", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (f == DialogResult.OK)
                 {
+                    Process deletebotschar = new Process();
+                    string deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
+                    deletebotschar.StartInfo.FileName = "cmd.exe";
+                    deletebotschar.StartInfo.Arguments = deletebotscharstring;
+                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotschar.Start();
+                    deletebotschar.WaitForExit();
 
+                    Process deletebotsworld = new Process();
+                    string deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
+                    deletebotsworld.StartInfo.FileName = "cmd.exe";
+                    deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
+                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotsworld.Start();
+                    deletebotsworld.WaitForExit();
+                    DialogResult d;
+                    d = MessageBox.Show("ALL NPCBots should have been removed from the world.", "NPCBotsDelete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (d == DialogResult.OK)
+                    {
+
+                    }
                 }
-
+                else
+                { Close(); }
 
             }
             else
@@ -142,12 +147,12 @@ namespace SkulyRepack
 
 
                     String fullPath = Path.GetDirectoryName(@"updater\launcher\sql\NPCDeleteBots\backup\NPCBotsDump.sql");
-                    FileInfo originalbackup = new FileInfo(@"updater\launcher\sql\NPCDeleteBots\backup\NPCBotsDump_Original_world.sql");
-                    if (!originalbackup.Exists)
+                    if (!File.Exists(@"updater\launcher\sql\NPCDeleteBots\backup\original\NPCBotsDump_Original_world.sql"))
                     {
-                      Directory.CreateDirectory(@"updater\launcher\sql\NPCDeleteBots\backup\original");
-                      File.Copy(Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup", "NPCBotsDump_world.sql"), Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup\original", "NPCBotsDump_Original_world.sql"));
-                      File.Copy(Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup", "NPCBotsDump_chars.sql"), Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup\original", "NPCBotsDump_Original_chars.sql"));
+                        Directory.CreateDirectory(@"updater\launcher\sql\NPCDeleteBots\backup\original");
+                        File.Copy(Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup", "NPCBotsDump_world.sql"), Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup\original", "NPCBotsDump_Original_world.sql"));
+                        File.Copy(Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup", "NPCBotsDump_chars.sql"), Path.Combine(@"updater\launcher\sql\NPCDeleteBots\backup\original", "NPCBotsDump_Original_chars.sql"));
+
                     }
 
                     DialogResult c;
@@ -156,29 +161,39 @@ namespace SkulyRepack
                     {
 
                     }
+
                 }
-                Process deletebotschar = new Process();
-                string deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
-                deletebotschar.StartInfo.FileName = "cmd.exe";
-                deletebotschar.StartInfo.Arguments = deletebotscharstring;
-                deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                deletebotschar.Start();
-                deletebotschar.WaitForExit();
-
-                Process deletebotsworld = new Process();
-                string deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
-                deletebotsworld.StartInfo.FileName = "cmd.exe";
-                deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
-                deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                deletebotsworld.Start();
-                deletebotsworld.WaitForExit();
-
-                DialogResult d;
-                d = MessageBox.Show("ALL NPCBots should have been removed from the world.", "NPCBotsDelete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (d == DialogResult.OK)
+                DialogResult f;
+                f = MessageBox.Show("Are you sure you want to remove ALL spawned bots from the world?", "NPCBotsDelete", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (f == DialogResult.OK)
                 {
+                    Process deletebotschar = new Process();
+                    string deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
+                    deletebotschar.StartInfo.FileName = "cmd.exe";
+                    deletebotschar.StartInfo.Arguments = deletebotscharstring;
+                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotschar.Start();
+                    deletebotschar.WaitForExit();
 
+                    Process deletebotsworld = new Process();
+                    string deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
+                    deletebotsworld.StartInfo.FileName = "cmd.exe";
+                    deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
+                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotsworld.Start();
+                    deletebotsworld.WaitForExit();
+
+                    DialogResult d;
+                    d = MessageBox.Show("ALL NPCBots should have been removed from the world.", "NPCBotsDelete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (d == DialogResult.OK)
+                    {
+
+                    }
                 }
+                else
+                { Close(); }
+
+               
 
             }
         }

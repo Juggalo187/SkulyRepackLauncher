@@ -198,7 +198,7 @@ namespace SkulyRepack
                     mysql.StartInfo.FileName = @"MySQL\bin\mysqld.exe";
                     mysql.StartInfo.Arguments = "--console";
                     mysql.Start();
-                    Thread.Sleep(4000);
+                    Thread.Sleep(10000);
                 }
                 else
                 {
@@ -594,6 +594,12 @@ namespace SkulyRepack
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            Form10 f10 = new Form10();
+            f10.ShowDialog();
         }
     }
 

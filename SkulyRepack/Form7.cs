@@ -20,15 +20,14 @@ namespace SkulyRepack
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBox1_GotFocus(object sender, EventArgs e)
         {
-
+            textBox1.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             FileInfo aInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
-
             if (aInfo.Exists)
             {
                 String sqlcheck1 = "mysqld";
@@ -42,55 +41,79 @@ namespace SkulyRepack
                     mysql.Start();
                     Thread.Sleep(4000);
 
-                    String createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
-            Directory.CreateDirectory(@"updater\launcher\sql\RealmIP");
-            File.WriteAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", createText, Encoding.UTF8);
+                    if (textBox1.Text.Length > 4)
+                    {
+                        String createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
+                        Directory.CreateDirectory(@"updater\launcher\sql\RealmIP");
+                        File.WriteAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", createText, Encoding.UTF8);
 
-            String text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
-            String appendText = text;
-            File.AppendAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", appendText);
+                        String text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
+                        String appendText = text;
+                        File.AppendAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", appendText);
 
+                        Process spawntime = new Process();
+                        string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
+                        spawntime.StartInfo.FileName = "cmd.exe";
+                        spawntime.StartInfo.Arguments = spawntimestring;
+                        spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        spawntime.Start();
+                        spawntime.WaitForExit();
 
-            Process spawntime = new Process();
-            string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
-            spawntime.StartInfo.FileName = "cmd.exe";
-            spawntime.StartInfo.Arguments = spawntimestring;
-            spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            spawntime.Start();
-            spawntime.WaitForExit();
+                        DialogResult d;
+                        d = MessageBox.Show("Realmlist IP was changed to " + textBox1.Text + ".", "RealmIP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (d == DialogResult.OK)
+                        {
+                            Close();
+                        }
+                    }
+                    else
+                    {
+                        DialogResult m;
+                        m = MessageBox.Show("Are you sure you entered an IP or Domain name? You entered less than 4 characters/digits.", "RealmIP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (m == DialogResult.OK)
+                        {
+                            Close();
+                        }
+                    }
 
-            DialogResult d;
-            d = MessageBox.Show("Realmlist IP was changed to " + textBox1.Text + ".", "RealmIP", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (d == DialogResult.OK)
-            {
-                Close();
-            }
+           
             }
                 else
                 {
 
-                    String createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
-                    Directory.CreateDirectory(@"updater\launcher\sql\RealmIP");
-                    File.WriteAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", createText, Encoding.UTF8);
-
-                    String text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
-                    String appendText = text;
-                    File.AppendAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", appendText);
-
-
-                    Process spawntime = new Process();
-                    string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
-                    spawntime.StartInfo.FileName = "cmd.exe";
-                    spawntime.StartInfo.Arguments = spawntimestring;
-                    spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    spawntime.Start();
-                    spawntime.WaitForExit();
-
-                    DialogResult d;
-                    d = MessageBox.Show("Realmlist IP was changed to " + textBox1.Text + ".", "RealmIP", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (d == DialogResult.OK)
+                    if (textBox1.Text.Length > 4)
                     {
-                        Close();
+                        String createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
+                        Directory.CreateDirectory(@"updater\launcher\sql\RealmIP");
+                        File.WriteAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", createText, Encoding.UTF8);
+
+                        String text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
+                        String appendText = text;
+                        File.AppendAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", appendText);
+
+                        Process spawntime = new Process();
+                        string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
+                        spawntime.StartInfo.FileName = "cmd.exe";
+                        spawntime.StartInfo.Arguments = spawntimestring;
+                        spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        spawntime.Start();
+                        spawntime.WaitForExit();
+
+                        DialogResult d;
+                        d = MessageBox.Show("Realmlist IP was changed to " + textBox1.Text + ".", "RealmIP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (d == DialogResult.OK)
+                        {
+                            Close();
+                        }
+                    }
+                    else
+                    {
+                        DialogResult m;
+                        m = MessageBox.Show("Are you sure you entered an IP or Domain name? You entered less than 4 characters/digits.", "RealmIP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (m == DialogResult.OK)
+                        {
+                            Close();
+                        }
                     }
                 }
 

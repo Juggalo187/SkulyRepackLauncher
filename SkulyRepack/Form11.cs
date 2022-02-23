@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Runtime.InteropServices;   // For DLL importing
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace SkulyRepack
 {
-    public partial class Form2 : Form
+    public partial class Form11 : Form
     {
-
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
-
-
-
-        public Form2()
+        public Form11()
         {
             InitializeComponent();
         }
@@ -24,13 +26,12 @@ namespace SkulyRepack
             String Procworld = "worldserver";
             Process[] procworld = Process.GetProcessesByName(Procworld);
 
-
             if ((procworld.Length != 0))
             {
                 foreach (Process proc in procworld)
                 {
-                   SetForegroundWindow(proc.MainWindowHandle);
-                    SendKeys.Send("account create " + textBox1.Text + " " + textBox2.Text);
+                    SetForegroundWindow(proc.MainWindowHandle);
+                    SendKeys.Send("pdump write " + textBox1.Text + " " + textBox1.Text);
                     SendKeys.Send("{ENTER}");
                 }
             }
@@ -44,14 +45,6 @@ namespace SkulyRepack
                     Close();
                 }
             }
-
-
-
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void textBox1_GotFocus(object sender, EventArgs e)
@@ -59,29 +52,15 @@ namespace SkulyRepack
             textBox1.Text = "";
         }
 
-        private void textBox2_GotFocus(object sender, EventArgs e)
-        {
-            textBox2.Text = "";
-        }
-
         private void textBox1_LostFocus(object sender, EventArgs e)
         {
+
             if (textBox1.Text.Length == 0)
-            { textBox1.Text = "Account name";}
+            { textBox1.Text = "Character Name"; }
             else
             { textBox1.Text = textBox1.Text; }
             
-
-
         }
 
-        private void textBox2_LostFocus(object sender, EventArgs e)
-        {
-            
-            if (textBox2.Text.Length == 0)
-            { textBox2.Text = "Password"; }
-            else
-            { textBox2.Text = textBox2.Text; }
-        }
     }
 }
