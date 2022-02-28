@@ -18,34 +18,34 @@ namespace SkulyRepack
         private void button1_Click(object sender, EventArgs e)
         {
 
-            FileInfo aInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
+            var aInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
 
             if (aInfo.Exists)
             {
-                String sqlcheck1 = "mysqld";
-                Process[] sqlcheck2 = Process.GetProcessesByName(sqlcheck1);
+                var sqlcheck1 = "mysqld";
+                var sqlcheck2 = Process.GetProcessesByName(sqlcheck1);
                 if ((sqlcheck2.Length == 0))
                 {
-                    Process mysql = new Process();
+                    var mysql = new Process();
                     mysql.StartInfo.FileName = @"MySQL\bin\mysqld.exe";
                     mysql.StartInfo.Arguments = "--console";
                     mysql.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
                     mysql.Start();
                     Thread.Sleep(4000);
-                    bool isNumeric = int.TryParse(textBox1.Text, out _);
+                    var isNumeric = int.TryParse(textBox1.Text, out _);
                     if (isNumeric)
                     {
                         //String createText = "SET @Spawntime = " + textBox1.Text + ";" + Environment.NewLine + "UPDATE creature SET spawntimesecs = @Spawntime WHERE npcflag = 0 AND (map = 0 OR map = 1 OR map = 530 OR map = 571);";
-                        String createText = "SET @Spawntime = " + textBox1.Text + ";";
+                        var createText = "SET @Spawntime = " + textBox1.Text + ";";
                         Directory.CreateDirectory(@"updater\launcher\sql\CreatureSpawntime\backup");
                         File.WriteAllText(@"updater\launcher\sql\CreatureSpawntime\execute.sql", createText, Encoding.UTF8);
 
-                        
+
                         DialogResult b;
                         b = MessageBox.Show("Would you like to make a backup before saving?", "Creature Respawn", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (b == DialogResult.Yes)
                         {
-                            Process mysqldump = new Process();
+                            var mysqldump = new Process();
                             mysqldump.StartInfo.FileName = @"MySQL\bin\mysqldump.exe";
                             mysqldump.StartInfo.Arguments = "-u root --password=root world creature --result-file=" + @"updater\launcher\sql\CreatureSpawntime\backup\creatureDump.sql";
                             mysqldump.StartInfo.UseShellExecute = true;
@@ -54,8 +54,8 @@ namespace SkulyRepack
                             mysqldump.WaitForExit();
 
 
-                            String fullPath = Path.GetFullPath(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump.sql");
-                            FileInfo originalbackup = new FileInfo(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql");
+                            var fullPath = Path.GetFullPath(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump.sql");
+                            var originalbackup = new FileInfo(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql");
                             if (!originalbackup.Exists)
                             { File.Copy(Path.Combine(@"updater\launcher\sql\CreatureSpawntime\backup", "creatureDump.sql"), Path.Combine(@"updater\launcher\sql\CreatureSpawntime\backup", "creatureDump_Original.sql")); }
 
@@ -68,13 +68,13 @@ namespace SkulyRepack
 
                         }
 
-                        String text = System.IO.File.ReadAllText(@"updater\launcher\sql\CreatureSpawntime\execute2.sql");
-                        String appendText = text;
+                        var text = System.IO.File.ReadAllText(@"updater\launcher\sql\CreatureSpawntime\execute2.sql");
+                        var appendText = text;
                         File.AppendAllText(@"updater\launcher\sql\CreatureSpawntime\execute.sql", appendText);
 
 
-                        Process spawntime = new Process();
-                        string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\CreatureSpawntime\execute.sql";
+                        var spawntime = new Process();
+                        var spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\CreatureSpawntime\execute.sql";
                         spawntime.StartInfo.FileName = "cmd.exe";
                         spawntime.StartInfo.Arguments = spawntimestring;
                         spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -106,12 +106,12 @@ namespace SkulyRepack
                 }
                 else
                 {
-                    bool isNumeric = int.TryParse(textBox1.Text, out _);
+                    var isNumeric = int.TryParse(textBox1.Text, out _);
                     if (isNumeric)
                     {
                         //String createText = "SET @Spawntime = " + textBox1.Text + ";" + Environment.NewLine + "UPDATE creature SET spawntimesecs = @Spawntime WHERE npcflag = 0 AND (map = 0 OR map = 1 OR map = 530 OR map = 571);";
 
-                        String createText = "SET @Spawntime = " + textBox1.Text + ";";
+                        var createText = "SET @Spawntime = " + textBox1.Text + ";";
                         Directory.CreateDirectory(@"updater\launcher\sql\CreatureSpawntime\backup");
                         File.WriteAllText(@"updater\launcher\sql\CreatureSpawntime\execute.sql", createText, Encoding.UTF8);
 
@@ -120,7 +120,7 @@ namespace SkulyRepack
                         b = MessageBox.Show("Would you like to make a backup before saving?", "Creature Respawn", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (b == DialogResult.Yes)
                         {
-                            Process mysqldump = new Process();
+                            var mysqldump = new Process();
                             mysqldump.StartInfo.FileName = @"MySQL\bin\mysqldump.exe";
                             mysqldump.StartInfo.Arguments = "-u root --password=root world creature --result-file=" + @"updater\launcher\sql\CreatureSpawntime\backup\creatureDump.sql";
                             mysqldump.StartInfo.UseShellExecute = true;
@@ -128,8 +128,8 @@ namespace SkulyRepack
                             mysqldump.Start();
                             mysqldump.WaitForExit();
 
-                            String fullPath = Path.GetFullPath(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump.sql");
-                            FileInfo originalbackup = new FileInfo(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql");
+                            var fullPath = Path.GetFullPath(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump.sql");
+                            var originalbackup = new FileInfo(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql");
                             if (!originalbackup.Exists)
                             { File.Copy(Path.Combine(@"updater\launcher\sql\CreatureSpawntime\backup", "creatureDump.sql"), Path.Combine(@"updater\launcher\sql\CreatureSpawntime\backup", "creatureDump_Original.sql")); }
 
@@ -141,12 +141,12 @@ namespace SkulyRepack
                             }
                         }
 
-                        String text = System.IO.File.ReadAllText(@"updater\launcher\sql\CreatureSpawntime\execute2.sql");
-                        String appendText = text;
+                        var text = System.IO.File.ReadAllText(@"updater\launcher\sql\CreatureSpawntime\execute2.sql");
+                        var appendText = text;
                         File.AppendAllText(@"updater\launcher\sql\CreatureSpawntime\execute.sql", appendText);
 
-                        Process spawntime = new Process();
-                        string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\CreatureSpawntime\execute.sql";
+                        var spawntime = new Process();
+                        var spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\CreatureSpawntime\execute.sql";
                         spawntime.StartInfo.FileName = "cmd.exe";
                         spawntime.StartInfo.Arguments = spawntimestring;
                         spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -195,12 +195,12 @@ namespace SkulyRepack
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FileInfo restorefile = new FileInfo(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql");
+            var restorefile = new FileInfo(@"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql");
 
             if (restorefile.Exists)
             {
-                Process spawntime = new Process();
-                string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql";
+                var spawntime = new Process();
+                var spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\CreatureSpawntime\backup\creatureDump_Original.sql";
                 spawntime.StartInfo.FileName = "cmd.exe";
                 spawntime.StartInfo.Arguments = spawntimestring;
                 spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;

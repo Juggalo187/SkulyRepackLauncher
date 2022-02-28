@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SkulyRepack
@@ -27,14 +21,14 @@ namespace SkulyRepack
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FileInfo aInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
+            var aInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
             if (aInfo.Exists)
             {
-                String sqlcheck1 = "mysqld";
-                Process[] sqlcheck2 = Process.GetProcessesByName(sqlcheck1);
+                var sqlcheck1 = "mysqld";
+                var sqlcheck2 = Process.GetProcessesByName(sqlcheck1);
                 if ((sqlcheck2.Length == 0))
                 {
-                    Process mysql = new Process();
+                    var mysql = new Process();
                     mysql.StartInfo.FileName = @"MySQL\bin\mysqld.exe";
                     mysql.StartInfo.Arguments = "--console";
                     mysql.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
@@ -43,16 +37,16 @@ namespace SkulyRepack
 
                     if (textBox1.Text.Length > 4)
                     {
-                        String createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
+                        var createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
                         Directory.CreateDirectory(@"updater\launcher\sql\RealmIP");
                         File.WriteAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", createText, Encoding.UTF8);
 
-                        String text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
-                        String appendText = text;
+                        var text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
+                        var appendText = text;
                         File.AppendAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", appendText);
 
-                        Process spawntime = new Process();
-                        string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
+                        var spawntime = new Process();
+                        var spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
                         spawntime.StartInfo.FileName = "cmd.exe";
                         spawntime.StartInfo.Arguments = spawntimestring;
                         spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -76,23 +70,23 @@ namespace SkulyRepack
                         }
                     }
 
-           
-            }
+
+                }
                 else
                 {
 
                     if (textBox1.Text.Length > 4)
                     {
-                        String createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
+                        var createText = "SET @REALMIP = \"" + textBox1.Text + "\";";
                         Directory.CreateDirectory(@"updater\launcher\sql\RealmIP");
                         File.WriteAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", createText, Encoding.UTF8);
 
-                        String text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
-                        String appendText = text;
+                        var text = System.IO.File.ReadAllText(@"updater\launcher\sql\RealmIP\RealmIP2.sql");
+                        var appendText = text;
                         File.AppendAllText(@"updater\launcher\sql\RealmIP\RealmIP.sql", appendText);
 
-                        Process spawntime = new Process();
-                        string spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
+                        var spawntime = new Process();
+                        var spawntimestring = "/C " + @"MySQL\bin\mysql -u root --password=root auth < " + @"updater\launcher\sql\RealmIP\RealmIP.sql";
                         spawntime.StartInfo.FileName = "cmd.exe";
                         spawntime.StartInfo.Arguments = spawntimestring;
                         spawntime.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;

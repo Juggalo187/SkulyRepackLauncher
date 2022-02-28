@@ -39,8 +39,8 @@
             this.textBox1.Size = new System.Drawing.Size(111, 20);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "Character Name";
-            this.textBox1.LostFocus += new System.EventHandler(this.textBox1_LostFocus);
-            this.textBox1.GotFocus += new System.EventHandler(this.textBox1_GotFocus);
+            this.textBox1.LostFocus += new System.EventHandler(this.TextBox1_LostFocus);
+            this.textBox1.GotFocus += new System.EventHandler(this.TextBox1_GotFocus);
             // 
             // button1
             // 
@@ -50,7 +50,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Form11
             // 

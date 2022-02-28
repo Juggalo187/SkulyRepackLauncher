@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;   // For DLL importing
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SkulyRepack
@@ -15,25 +9,58 @@ namespace SkulyRepack
     public partial class Form11 : Form
     {
         [DllImport("user32.dll")]
-        static extern bool SetForegroundWindow(IntPtr hWnd);
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
         public Form11()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            String Procworld = "worldserver";
-            Process[] procworld = Process.GetProcessesByName(Procworld);
+            var procworldstring = "worldserver";
+            var procworld = Process.GetProcessesByName(procworldstring);
 
             if ((procworld.Length != 0))
             {
-                foreach (Process proc in procworld)
+
+                var dumpfile = new FileInfo(@"" + textBox1.Text);
+
+
+                foreach (var proc in procworld)
                 {
-                    SetForegroundWindow(proc.MainWindowHandle);
-                    SendKeys.Send("pdump write " + textBox1.Text + " " + textBox1.Text);
-                    SendKeys.Send("{ENTER}");
+                    if (dumpfile.Exists)
+                    {
+                        DialogResult f;
+                        f = MessageBox.Show("The file " + textBox1.Text + " already exists, it will be deleted. Do you wish to proceed?", "Save Character", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                        if (f == DialogResult.Yes)
+                        {
+                            File.Delete(@"" + textBox1.Text);
+                            SetForegroundWindow(proc.MainWindowHandle);
+                            SendKeys.Send("pdump write " + textBox1.Text + " " + textBox1.Text);
+                            SendKeys.Send("{ENTER}");
+                        }
+                        else
+                        {
+                            Close();
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        SetForegroundWindow(proc.MainWindowHandle);
+                        SendKeys.Send("pdump write " + textBox1.Text + " " + textBox1.Text);
+                        SendKeys.Send("{ENTER}");
+                    }
+
+
                 }
+
+
+
+
             }
             else
             {
@@ -47,19 +74,19 @@ namespace SkulyRepack
             }
         }
 
-        private void textBox1_GotFocus(object sender, EventArgs e)
+        private void TextBox1_GotFocus(object sender, EventArgs e)
         {
             textBox1.Text = "";
         }
 
-        private void textBox1_LostFocus(object sender, EventArgs e)
+        private void TextBox1_LostFocus(object sender, EventArgs e)
         {
 
             if (textBox1.Text.Length == 0)
             { textBox1.Text = "Character Name"; }
             else
             { textBox1.Text = textBox1.Text; }
-            
+
         }
 
     }

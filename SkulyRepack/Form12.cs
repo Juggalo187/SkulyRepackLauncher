@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Runtime.InteropServices;   // For DLL importing
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SkulyRepack
@@ -15,7 +8,7 @@ namespace SkulyRepack
     public partial class Form12 : Form
     {
         [DllImport("user32.dll")]
-        static extern bool SetForegroundWindow(IntPtr hWnd);
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public Form12()
         {
@@ -24,12 +17,12 @@ namespace SkulyRepack
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String Procworld = "worldserver";
-            Process[] procworld = Process.GetProcessesByName(Procworld);
+            var Procworld = "worldserver";
+            var procworld = Process.GetProcessesByName(Procworld);
 
             if ((procworld.Length != 0))
             {
-                foreach (Process proc in procworld)
+                foreach (var proc in procworld)
                 {
                     SetForegroundWindow(proc.MainWindowHandle);
                     SendKeys.Send("pdump load " + textBox1.Text + " " + textBox2.Text + " " + textBox3.Text);
@@ -73,7 +66,7 @@ namespace SkulyRepack
 
         private void textBox2_LostFocus(object sender, EventArgs e)
         {
-            
+
             if (textBox2.Text.Length == 0)
             { textBox2.Text = "        Account Name"; }
             else
@@ -82,7 +75,7 @@ namespace SkulyRepack
 
         private void textBox3_LostFocus(object sender, EventArgs e)
         {
-            
+
             if (textBox3.Text.Length == 0)
             { textBox3.Text = " New Name For Character"; }
             else

@@ -10,7 +10,7 @@ namespace SkulyRepack
     {
 
         [DllImport("user32.dll")]
-        static extern bool SetForegroundWindow(IntPtr hWnd);
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
 
 
@@ -21,15 +21,15 @@ namespace SkulyRepack
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String Procworld = "worldserver";
-            Process[] procworld = Process.GetProcessesByName(Procworld);
+            var Procworld = "worldserver";
+            var procworld = Process.GetProcessesByName(Procworld);
 
 
             if ((procworld.Length != 0))
             {
-                foreach (Process proc in procworld)
+                foreach (var proc in procworld)
                 {
-                   SetForegroundWindow(proc.MainWindowHandle);
+                    SetForegroundWindow(proc.MainWindowHandle);
                     SendKeys.Send("account create " + textBox1.Text + " " + textBox2.Text);
                     SendKeys.Send("{ENTER}");
                 }
@@ -67,17 +67,17 @@ namespace SkulyRepack
         private void textBox1_LostFocus(object sender, EventArgs e)
         {
             if (textBox1.Text.Length == 0)
-            { textBox1.Text = "Account name";}
+            { textBox1.Text = "Account name"; }
             else
             { textBox1.Text = textBox1.Text; }
-            
+
 
 
         }
 
         private void textBox2_LostFocus(object sender, EventArgs e)
         {
-            
+
             if (textBox2.Text.Length == 0)
             { textBox2.Text = "Password"; }
             else

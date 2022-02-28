@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;   // For DLL importing
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Application = System.Windows.Forms.Application;
@@ -16,17 +16,16 @@ namespace SkulyRepack
     public partial class Form1 : Form
     {
 
-        private const int SW_SHOW = 5;
         private const int SW_RESTORE = 9;
         private const int SW_MINIMIZE = 6;
 
 
         [DllImport("user32.dll")]
-        static extern bool SetForegroundWindow(IntPtr hWnd);
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
 
         [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -34,37 +33,69 @@ namespace SkulyRepack
         public Form1()
         {
             InitializeComponent();
-
-            FileInfo fInfo = new FileInfo(@"updater\launcher\Version.txt");
+            var fInfo = new FileInfo(@"updater\launcher\Version.txt");
 
             if (fInfo.Exists)
             {
-                string line1 = File.ReadLines(@"updater\launcher\Version.txt").First();
-                this.Text = "SkulyRepack Update_" + line1;
+                var line1 = File.ReadLines(@"updater\launcher\Version.txt").First();
+                Text = "SkulyRepack Update_" + line1;
             }
             else
             {
 
-                this.Text = "SkulyRepack";
-                String createText = "0";
+                Text = "SkulyRepack";
+                var createText = "0";
                 Directory.CreateDirectory(@"updater\launcher\");
                 File.WriteAllText(@"updater\launcher\Version.txt", createText, Encoding.UTF8);
             }
 
+            var vfile = new FileInfo(@"updater\launcher\Version.txt");
+            var rfile = new FileInfo(@"updater\launcher\NetVersion.txt");
+
+            if (rfile.Exists)
+            {
+                File.Delete(@"updater\launcher\NetVersion.txt");
+            }
+
+            var webClient = new WebClient();
+            webClient.DownloadFile("https://raw.githubusercontent.com/Juggalo187/Repack_updater/main/NetVersion.txt", @"updater\launcher\NetVersion.txt");
+
+            if (vfile.Exists && rfile.Exists)
+            {
+                var vline1 = File.ReadLines(@"updater\launcher\Version.txt").First();
+                var line1 = File.ReadLines(@"updater\launcher\NetVersion.txt").First();
+                if (Convert.ToInt32(line1) > Convert.ToInt32(vline1))
+                {
+                    DialogResult d;
+                    d = MessageBox.Show("You have version " + vline1 + " and version " + line1 + " is available for download. Would you like to download page?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (d == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA");
+                    }
+
+
+
+                }
+            }
+
+
+
+
+
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            String mysqldcheck1 = "mysqld";
-            Process[] mysqldcheck2 = Process.GetProcessesByName(mysqldcheck1);
+            var mysqldcheck1 = "mysqld";
+            var mysqldcheck2 = Process.GetProcessesByName(mysqldcheck1);
             if ((mysqldcheck2.Length == 0))
             {
-                FileInfo mInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
+                var mInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
 
                 if (mInfo.Exists)
                 {
-                    Process mysql = new Process();
+                    var mysql = new Process();
                     mysql.StartInfo.FileName = @"MySQL\bin\mysqld.exe";
                     mysql.StartInfo.Arguments = "--console";
                     mysql.Start();
@@ -96,19 +127,19 @@ namespace SkulyRepack
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
-            String authcheck1 = "authserver";
-            Process[] authcheck2 = Process.GetProcessesByName(authcheck1);
+            var authcheck1 = "authserver";
+            var authcheck2 = Process.GetProcessesByName(authcheck1);
             if ((authcheck2.Length == 0))
             {
-                FileInfo authInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
+                var authInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
 
                 if (authInfo.Exists)
                 {
-                    Process Auth = new Process();
-                    Auth.StartInfo.FileName = @"authserver.exe";
-                    Auth.Start();
+                    var auth = new Process();
+                    auth.StartInfo.FileName = @"authserver.exe";
+                    auth.Start();
                 }
                 else
                 {
@@ -139,20 +170,20 @@ namespace SkulyRepack
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
 
-            String worldcheck1 = "worldserver";
-            Process[] worldcheck2 = Process.GetProcessesByName(worldcheck1);
+            var worldcheck1 = "worldserver";
+            var worldcheck2 = Process.GetProcessesByName(worldcheck1);
             if ((worldcheck2.Length == 0))
             {
-                FileInfo wInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
+                var wInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
 
                 if (wInfo.Exists)
                 {
-                    Process World = new Process();
-                    World.StartInfo.FileName = @"worldserver.exe";
-                    World.Start();
+                    var world = new Process();
+                    world.StartInfo.FileName = @"worldserver.exe";
+                    world.Start();
                 }
                 else
                 {
@@ -184,17 +215,17 @@ namespace SkulyRepack
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
-            FileInfo aInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
+            var aInfo = new FileInfo(@"MySQL\bin\mysqld.exe");
 
             if (aInfo.Exists)
             {
-                String sqlcheck1 = "mysqld";
-                Process[] sqlcheck2 = Process.GetProcessesByName(sqlcheck1);
+                var sqlcheck1 = "mysqld";
+                var sqlcheck2 = Process.GetProcessesByName(sqlcheck1);
                 if ((sqlcheck2.Length == 0))
                 {
-                    Process mysql = new Process();
+                    var mysql = new Process();
                     mysql.StartInfo.FileName = @"MySQL\bin\mysqld.exe";
                     mysql.StartInfo.Arguments = "--console";
                     mysql.Start();
@@ -213,13 +244,13 @@ namespace SkulyRepack
                 }
 
 
-                String authcheck1 = "authserver";
-                Process[] authcheck2 = Process.GetProcessesByName(authcheck1);
+                var authcheck1 = "authserver";
+                var authcheck2 = Process.GetProcessesByName(authcheck1);
                 if ((authcheck2.Length == 0))
                 {
-                    Process Auth = new Process();
-                    Auth.StartInfo.FileName = @"authserver.exe";
-                    Auth.Start();
+                    var auth = new Process();
+                    auth.StartInfo.FileName = @"authserver.exe";
+                    auth.Start();
                     Thread.Sleep(2000);
                 }
                 else
@@ -236,14 +267,14 @@ namespace SkulyRepack
 
 
 
-                String worldcheck1 = "worldserver";
-                Process[] worldcheck2 = Process.GetProcessesByName(worldcheck1);
+                var worldcheck1 = "worldserver";
+                var worldcheck2 = Process.GetProcessesByName(worldcheck1);
                 if ((worldcheck2.Length == 0))
                 {
 
-                    Process World = new Process();
-                    World.StartInfo.FileName = @"worldserver.exe";
-                    World.Start();
+                    var world = new Process();
+                    world.StartInfo.FileName = @"worldserver.exe";
+                    world.Start();
                 }
                 else
                 {
@@ -271,11 +302,11 @@ namespace SkulyRepack
 
         }
 
-        private void button13_Click(object sender, EventArgs e)
+        private void Button13_Click(object sender, EventArgs e)
         {
-            String ProcWindow = "authserver";
-            Process[] procs = Process.GetProcessesByName(ProcWindow);
-            foreach (Process proc in procs)
+            var procWindow = "authserver";
+            var procs = Process.GetProcessesByName(procWindow);
+            foreach (var proc in procs)
             {
                 //switch to process by name
                 ShowWindow(proc.MainWindowHandle, SW_MINIMIZE);
@@ -284,68 +315,59 @@ namespace SkulyRepack
 
         }
 
-        private void button14_Click(object sender, EventArgs e)
+        private void Button14_Click(object sender, EventArgs e)
         {
-            String Procmysql = "mysqld";
-            String Procauth = "authserver";
-            String Procworld = "worldserver";
+            var procmysqlstring = "mysqld";
+            var procauthstring = "authserver";
+            var procworldstring = "worldserver";
 
 
-            Process[] procmysq = Process.GetProcessesByName(Procmysql);
-            Process[] procauth = Process.GetProcessesByName(Procauth);
-            Process[] procworld = Process.GetProcessesByName(Procworld);
+            var procmysq = Process.GetProcessesByName(procmysqlstring);
+            var procauth = Process.GetProcessesByName(procauthstring);
+            var procworld = Process.GetProcessesByName(procworldstring);
 
 
-            if (this.button14.Text == "Restore Servers")
+            if (button14.Text == "Restore Servers")
             {
 
-                foreach (Process proc in procmysq)
+                foreach (var proc in procmysq)
                 {
                     ShowWindow(proc.MainWindowHandle, SW_RESTORE);
                 }
 
-                foreach (Process proc in procauth)
+                foreach (var proc in procauth)
                 {
                     ShowWindow(proc.MainWindowHandle, SW_RESTORE);
                 }
 
-                foreach (Process proc in procworld)
+                foreach (var proc in procworld)
                 {
                     ShowWindow(proc.MainWindowHandle, SW_RESTORE);
                 }
 
-                this.button14.Text = "Minimize Servers";
+                button14.Text = "Minimize Servers";
 
             }
             else
             {
 
-                foreach (Process proc in procmysq)
+                foreach (var proc in procmysq)
                 {
                     ShowWindow(proc.MainWindowHandle, SW_MINIMIZE);
                 }
 
-                foreach (Process proc in procauth)
+                foreach (var proc in procauth)
                 {
                     ShowWindow(proc.MainWindowHandle, SW_MINIMIZE);
                 }
 
-                foreach (Process proc in procworld)
+                foreach (var proc in procworld)
                 {
                     ShowWindow(proc.MainWindowHandle, SW_MINIMIZE);
                 }
 
-                this.button14.Text = "Restore Servers";
+                button14.Text = "Restore Servers";
             }
-        }
-
-
-        private static WINDOWPLACEMENT GetPlacement(IntPtr hwnd)
-        {
-            WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
-            placement.length = Marshal.SizeOf(placement);
-            GetWindowPlacement(hwnd, ref placement);
-            return placement;
         }
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -357,12 +379,12 @@ namespace SkulyRepack
         [StructLayout(LayoutKind.Sequential)]
         internal struct WINDOWPLACEMENT
         {
-            public int length;
-            public int flags;
-            public ShowWindowCommands showCmd;
-            public System.Drawing.Point ptMinPosition;
-            public System.Drawing.Point ptMaxPosition;
-            public System.Drawing.Rectangle rcNormalPosition;
+            public int _length;
+            public int _flags;
+            public ShowWindowCommands _showCmd;
+            public System.Drawing.Point _ptMinPosition;
+            public System.Drawing.Point _ptMaxPosition;
+            public System.Drawing.Rectangle _rcNormalPosition;
         }
 
         internal enum ShowWindowCommands : int
@@ -373,44 +395,44 @@ namespace SkulyRepack
             Maximized = 3,
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Button5_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2();
+            var f2 = new Form2();
             f2.ShowDialog(); // Shows Form2
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void Button7_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
+            var f3 = new Form3();
             f3.ShowDialog(); // Shows Form3
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void Button6_Click(object sender, EventArgs e)
         {
-            Form4 f4 = new Form4();
+            var f4 = new Form4();
             f4.ShowDialog(); // Shows Form4
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.paypal.com/donate/?business=UXEPUCHFZGDHG&no_recurring=0&currency_code=USD");
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void Button10_Click(object sender, EventArgs e)
         {
 
-            WebClient webClient = new WebClient();
+            var webClient = new WebClient();
             webClient.DownloadFile("https://raw.githubusercontent.com/Juggalo187/Repack_updater/main/NetVersion.txt", @"updater\launcher\NetVersion.txt");
 
 
 
 
-            FileInfo vfile = new FileInfo(@"updater\launcher\Version.txt");
-            FileInfo rfile = new FileInfo(@"updater\launcher\NetVersion.txt");
+            var vfile = new FileInfo(@"updater\launcher\Version.txt");
+            var rfile = new FileInfo(@"updater\launcher\NetVersion.txt");
             if (vfile.Exists && rfile.Exists)
             {
-                string vline1 = File.ReadLines(@"updater\launcher\Version.txt").First();
-                string line1 = File.ReadLines(@"updater\launcher\NetVersion.txt").First();
+                var vline1 = File.ReadLines(@"updater\launcher\Version.txt").First();
+                var line1 = File.ReadLines(@"updater\launcher\NetVersion.txt").First();
                 if (Convert.ToInt32(line1) > Convert.ToInt32(vline1))
                 {
                     DialogResult d;
@@ -441,36 +463,34 @@ namespace SkulyRepack
                 d = MessageBox.Show("There was a problem checking for update.", "check for update", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (d == DialogResult.OK)
                 {
-                    
+
                 }
 
             }
 
         }
 
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://discord.gg/VtrVvVjCPH");
         }
 
-        private void button12_Click(object sender, EventArgs e)
+        private void Button12_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            var fileContent = string.Empty;
-            var filePath = string.Empty;
+            var openFileDialog = new OpenFileDialog();
+            var fInfo = new FileInfo(@"updater\launcher\wowstart.txt");
 
-            FileInfo fInfo = new FileInfo(@"updater\launcher\wowstart.txt");
-
+            string filePath;
             if (fInfo.Exists)
             {
-                string line1 = File.ReadLines(@"updater\launcher\wowstart.txt").First();
-                FileInfo fInfo2 = new FileInfo(line1);
+                var line1 = File.ReadLines(@"updater\launcher\wowstart.txt").First();
+                var fInfo2 = new FileInfo(line1);
                 if (fInfo2.Exists)
                 {
 
-                    Process Wow = new Process();
-                    Wow.StartInfo.FileName = line1;
-                    Wow.Start();
+                    var wow = new Process();
+                    wow.StartInfo.FileName = line1;
+                    wow.Start();
                 }
                 else
                 {
@@ -482,15 +502,15 @@ namespace SkulyRepack
 
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        string path = @"updater\launcher\";
-                        DirectoryInfo di = Directory.CreateDirectory(path);
+                        var path = @"updater\launcher\";
+                        _ = Directory.CreateDirectory(path);
 
                         //Get the path of specified file
                         filePath = openFileDialog.FileName;
 
-                        Process Wow = new Process();
-                        Wow.StartInfo.FileName = filePath;
-                        Wow.Start();
+                        var wow = new Process();
+                        wow.StartInfo.FileName = filePath;
+                        wow.Start();
 
                         TextWriter txt = new StreamWriter(@"updater\launcher\wowstart.txt");
                         txt.Write(filePath);
@@ -509,15 +529,15 @@ namespace SkulyRepack
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string path = @"updater\launcher\";
-                    DirectoryInfo di = Directory.CreateDirectory(path);
+                    var path = @"updater\launcher\";
+                    _ = Directory.CreateDirectory(path);
 
                     //Get the path of specified file
                     filePath = openFileDialog.FileName;
 
-                    Process Wow = new Process();
-                    Wow.StartInfo.FileName = filePath;
-                    Wow.Start();
+                    var wow = new Process();
+                    wow.StartInfo.FileName = filePath;
+                    wow.Start();
 
                     TextWriter txt = new StreamWriter(@"updater\launcher\wowstart.txt");
                     txt.Write(filePath);
@@ -543,23 +563,23 @@ namespace SkulyRepack
             Application.Exit(); // or this.Close();
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void Button9_Click(object sender, EventArgs e)
         {
 
-            Form5 f5 = new Form5();
+            var f5 = new Form5();
             f5.ShowDialog();
 
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void Button8_Click(object sender, EventArgs e)
         {
 
-            String Procworld = "worldserver";
-            Process[] procworld = Process.GetProcessesByName(Procworld);
+            var procworldstring = "worldserver";
+            var procworld = Process.GetProcessesByName(procworldstring);
 
             if ((procworld.Length != 0))
             {
-                foreach (Process proc in procworld)
+                foreach (var proc in procworld)
                 {
                     SetForegroundWindow(proc.MainWindowHandle);
                     SendKeys.Send("server shutdown force 1");
@@ -569,19 +589,19 @@ namespace SkulyRepack
             }
 
 
-            String Procauthkill = "authserver";
-            Process[] Procauthkill2 = Process.GetProcessesByName(Procauthkill);
+            var procauthkillstring = "authserver";
+            var procauthkill2 = Process.GetProcessesByName(procauthkillstring);
 
-            if ((Procauthkill.Length != 0))
+            if ((procauthkill2.Length != 0))
             {
-                foreach (Process proc2 in Procauthkill2)
+                foreach (var proc2 in procauthkill2)
                 {
                     proc2.Kill();
                 }
             }
 
 
-            Process mysqladmin = new Process();
+            var mysqladmin = new Process();
 
             mysqladmin.StartInfo.FileName = @"MySQL\bin\mysqladmin.exe";
             mysqladmin.StartInfo.Arguments = "-u root --password=root shutdown";
@@ -596,9 +616,9 @@ namespace SkulyRepack
 
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
+        private void Button5_Click_1(object sender, EventArgs e)
         {
-            Form10 f10 = new Form10();
+            var f10 = new Form10();
             f10.ShowDialog();
         }
     }

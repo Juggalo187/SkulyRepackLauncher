@@ -9,7 +9,7 @@ namespace SkulyRepack
     public partial class Form3 : Form
     {
         [DllImport("user32.dll")]
-        static extern bool SetForegroundWindow(IntPtr hWnd);
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public Form3()
         {
@@ -19,12 +19,12 @@ namespace SkulyRepack
         private void button1_Click(object sender, EventArgs e)
         {
 
-            String Procworld = "worldserver";
-            Process[] procworld = Process.GetProcessesByName(Procworld);
+            var Procworld = "worldserver";
+            var procworld = Process.GetProcessesByName(Procworld);
 
             if ((procworld.Length != 0))
             {
-                foreach (Process proc in procworld)
+                foreach (var proc in procworld)
                 {
                     SetForegroundWindow(proc.MainWindowHandle);
                     SendKeys.Send("account set gmlevel " + textBox1.Text + " 3 -1");
