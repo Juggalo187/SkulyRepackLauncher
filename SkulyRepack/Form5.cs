@@ -198,8 +198,10 @@ namespace SkulyRepack
             }
         }
 
-
-
-
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var f13 = new Form13();
+            f13.ShowDialog();
+        }
     }
 }
