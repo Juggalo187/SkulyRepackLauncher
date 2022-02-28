@@ -113,7 +113,7 @@ namespace SkulyRepack
                     if (isNumeric)
                     {
 
-                        var createText = "SET @Spawntime = " + textBox1.Text + ";";
+                        var createText = "SET @RESPAWNTIME = " + textBox1.Text + ";";
                         Directory.CreateDirectory(@"updater\launcher\sql\NodeRespawn\backup");
                         File.WriteAllText(@"updater\launcher\sql\NodeRespawn\execute.sql", createText, Encoding.UTF8);
 
