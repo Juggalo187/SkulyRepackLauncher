@@ -96,13 +96,13 @@ namespace SkulyRepack
                 }
                 DialogResult f;
                 f = MessageBox.Show("Are you sure you want to remove ALL spawned bots from the world?", "NPCBotsDelete", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (f == DialogResult.OK)
+                if (f == DialogResult.Yes)
                 {
                     var deletebotschar = new Process();
                     var deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
                     deletebotschar.StartInfo.FileName = "cmd.exe";
                     deletebotschar.StartInfo.Arguments = deletebotscharstring;
-                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     deletebotschar.Start();
                     deletebotschar.WaitForExit();
 
@@ -110,7 +110,7 @@ namespace SkulyRepack
                     var deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
                     deletebotsworld.StartInfo.FileName = "cmd.exe";
                     deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
-                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     deletebotsworld.Start();
                     deletebotsworld.WaitForExit();
                     DialogResult d;
@@ -165,13 +165,13 @@ namespace SkulyRepack
                 }
                 DialogResult f;
                 f = MessageBox.Show("Are you sure you want to remove ALL spawned bots from the world?", "NPCBotsDelete", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (f == DialogResult.OK)
+                if (f == DialogResult.Yes)
                 {
                     var deletebotschar = new Process();
                     var deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
                     deletebotschar.StartInfo.FileName = "cmd.exe";
                     deletebotschar.StartInfo.Arguments = deletebotscharstring;
-                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     deletebotschar.Start();
                     deletebotschar.WaitForExit();
 
@@ -179,7 +179,7 @@ namespace SkulyRepack
                     var deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
                     deletebotsworld.StartInfo.FileName = "cmd.exe";
                     deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
-                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     deletebotsworld.Start();
                     deletebotsworld.WaitForExit();
 
