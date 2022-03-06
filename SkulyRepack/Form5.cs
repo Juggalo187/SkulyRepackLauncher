@@ -102,7 +102,7 @@ namespace SkulyRepack
                     var deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
                     deletebotschar.StartInfo.FileName = "cmd.exe";
                     deletebotschar.StartInfo.Arguments = deletebotscharstring;
-                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     deletebotschar.Start();
                     deletebotschar.WaitForExit();
 
@@ -110,7 +110,7 @@ namespace SkulyRepack
                     var deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
                     deletebotsworld.StartInfo.FileName = "cmd.exe";
                     deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
-                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     deletebotsworld.Start();
                     deletebotsworld.WaitForExit();
                     DialogResult d;
@@ -171,7 +171,7 @@ namespace SkulyRepack
                     var deletebotscharstring = "/C " + @"MySQL\bin\mysql -u root --password=root characters < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_chars.sql";
                     deletebotschar.StartInfo.FileName = "cmd.exe";
                     deletebotschar.StartInfo.Arguments = deletebotscharstring;
-                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotschar.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     deletebotschar.Start();
                     deletebotschar.WaitForExit();
 
@@ -179,7 +179,7 @@ namespace SkulyRepack
                     var deletebotsworldstring = "/C " + @"MySQL\bin\mysql -u root --password=root world < " + @"updater\launcher\sql\NPCDeleteBots\delete_npcbot_world.sql";
                     deletebotsworld.StartInfo.FileName = "cmd.exe";
                     deletebotsworld.StartInfo.Arguments = deletebotsworldstring;
-                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    deletebotsworld.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     deletebotsworld.Start();
                     deletebotsworld.WaitForExit();
 
