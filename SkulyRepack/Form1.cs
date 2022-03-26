@@ -70,7 +70,9 @@ namespace SkulyRepack
                     d = MessageBox.Show("You have version " + vline1 + " and version " + line1 + " is available for download. Would you like to open the download page?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (d == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
+                        //System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
+                        var f14 = new Form14();
+                        f14.ShowDialog(); // Shows Form14
                     }
 
 
@@ -439,7 +441,9 @@ namespace SkulyRepack
                     d = MessageBox.Show("You have version " + vline1 + " and version " + line1 + " is available for download. Would you like to open the download page?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (d == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
+                        //System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
+                        var f14 = new Form14();
+                        f14.ShowDialog(); // Shows Form14
                     }
 
 
@@ -451,7 +455,9 @@ namespace SkulyRepack
                     d = MessageBox.Show("There doesn't seem to be an update avaiable. would you like to open the download page and check for a new update anyway?", "check for update", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (d == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
+                        //System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
+                        var f14 = new Form14();
+                        f14.ShowDialog(); // Shows Form14
                     }
 
                 }
