@@ -64,7 +64,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(87, 23);
             this.button7.TabIndex = 7;
-            this.button7.Text = "Acc GM";
+            this.button7.Text = "Make GM";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 

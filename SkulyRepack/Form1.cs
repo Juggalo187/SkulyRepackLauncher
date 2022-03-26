@@ -67,10 +67,10 @@ namespace SkulyRepack
                 if (Convert.ToInt32(line1) > Convert.ToInt32(vline1))
                 {
                     DialogResult d;
-                    d = MessageBox.Show("You have version " + vline1 + " and version " + line1 + " is available for download. Would you like to download page?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    d = MessageBox.Show("You have version " + vline1 + " and version " + line1 + " is available for download. Would you like to open the download page?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (d == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA");
+                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
                     }
 
 
@@ -436,10 +436,10 @@ namespace SkulyRepack
                 if (Convert.ToInt32(line1) > Convert.ToInt32(vline1))
                 {
                     DialogResult d;
-                    d = MessageBox.Show("You have version " + vline1 + " and version " + line1 + " is available for download. Would you like to download page?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    d = MessageBox.Show("You have version " + vline1 + " and version " + line1 + " is available for download. Would you like to open the download page?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (d == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA");
+                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
                     }
 
 
@@ -451,7 +451,7 @@ namespace SkulyRepack
                     d = MessageBox.Show("There doesn't seem to be an update avaiable. would you like to open the download page and check for a new update anyway?", "check for update", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (d == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA");
+                        System.Diagnostics.Process.Start("https://mega.nz/folder/WogBxYgA#bdu86gjeyDUKsyS95KEJfA/folder/Op42FZLY");
                     }
 
                 }
